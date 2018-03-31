@@ -45,6 +45,10 @@ if(!isset($_SESSION['login_user']))
       exit();
    }
 
+//Checking the user's submitted answer
+if(isset($_POST['ans']))    {
+    //echo $_POST['ans'];
+}
 
 //fetching current level of person
 $post = [
