@@ -1,1 +1,1 @@
-This repo will hold the paradox site 2017
+This repo will hold the paradox site 2018

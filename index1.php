@@ -21,7 +21,7 @@
   </head>
 
 <?php
-/*
+
 session_start(); //session start
 
 require_once ('libraries/Google/autoload.php');
@@ -33,9 +33,9 @@ include_once('header.php');
 //$db = $database->getConnection();
 //Insert your cient ID and secret 
 //You can get it from : https://console.developers.google.com/
-$client_id = '307712715810-5gqv439ef8l9hmmod3ggpbdplcc7t7gq.apps.googleusercontent.com'; 
-$client_secret = 'yvXrJI4PIvIEtJr4G-DBd44N';
-$redirect_uri = 'http://localhost/paradox_2018/index.php';
+$client_id = '782438514337-rnuume9h0hsni475jojuhen977p4j6su.apps.googleusercontent.com'; 
+$client_secret = 'NJBL_AvMF7U8h4QXTLdHF4Ni';
+$redirect_uri = 'http://localhost/github/Paradox-2018/index1.php';
 
 
 $client = new Google_Client();
@@ -51,14 +51,14 @@ $client->addScope("profile");
   for the required scopes, and uses that when
   generating the authentication URL later.
  ************************************************/
-/*$service = new Google_Service_Oauth2($client);
+$service = new Google_Service_Oauth2($client);
 
 /************************************************
   If we have a code back from the OAuth 2.0 flow,
   we need to exchange that with the authenticate()
   function. We store the resultant access token
   bundle in the session, and redirect to ourself.
-
+************************************************/
   
 if (isset($_GET['code'])) 
 {
@@ -82,7 +82,7 @@ else
 
 //Display user info or display login url as per the info we have.
 echo '<div class="container">';
-$da=date("d/m/Y - H:i:s");
+//$da=date("d/m/Y - H:i:s");
 
 if (isset($authUrl))
 { 
@@ -91,25 +91,29 @@ if (isset($authUrl))
 	echo '<img class="btlog1" src="images/logo.png"><br>';
 	echo "<h3><code>Team .EXE wants you to Sign In to your Google account</code></h3><br>";
 	echo '<a class="login" href="' . $authUrl . '"><img class="btlog1" src="images/signin_button.png" /></a><br>';
-	
 } 
 else 
 {
-	
 	$user = $service->userinfo->get(); //get user info 
 	$_SESSION['login_user']=$user['id'];
 	include_once('sessions.php');
-    $nm=$user['id'];
+   $usrid = $user->id;
+   $usrname = $user->name;
+   $usremail = $user->email;
+   $usrlink = $user->link;
+   $usrpic = $user->picture;
 	
 	//check if user exist in database using COUNT
 	//$resulta = mysqli_query($link,"SELECT COUNT(google_id) as usercount FROM users WHERE google_id=$user->id");	
 	//$user_count = $resulta->fetch_object()->usercount; //will return 0 if user doesn't exist
-	
-	
+		
 $post = [
     'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
     'req_type' => 30,
-    'google_id' => 463;,
+    'google_id' => $usrid,
+    'name' => $usrname,
+    'email' => $usremail,
+    'picture' => $usrpic,
 ];
 $ch = curl_init("http://localhost/api/users/create_new.php");
 
@@ -118,42 +122,125 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
 // execute!
-
 $response = curl_exec($ch);
 // close the connection, release resources used
 curl_close($ch);
 
-	
-/*	if($user_count!=0) //if user already exist change greeting text to "Welcome Back"
+//echo $response;
+
+$records = json_decode($response);
+
+foreach($records as $key => $value)
+ 	{
+   	$temp_result = $value;
+}
+//print_r($records);
+//temp_result stores the response of create_new
+//echo $temp_result;
+
+if($temp_result == "false")
+echo "Some problem was encountered.Try again!";
+elseif($temp_result == "true")
+{
+//echo "Registered Successfully";
+
+$post = [
+    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
+    'req_type' => 30,
+    'google_id' => $usrid,
+];
+$ch = curl_init("http://localhost/api/profile/read_one.php");
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+// execute!
+$response1 = curl_exec($ch);
+// close the connection, release resources used
+curl_close($ch);
+
+//echo $response1;
+
+$records1 = json_decode($response1);
+
+foreach($records1 as $key => $value)
+ 	{
+   	for($i = 0; $i < sizeof($value); $i++)
+   	{
+    	//print_r($value[$i]->name);
+		//echo "<br>";
+    	
+     $pic_url = $value[$i]->picture;
+     $name= $value[$i]->name;
+     $score = $value[$i]->score;
+	 $level= $value[$i]->level;
+		
+	 echo '<img src="'.$pic_url.'" style="float: right;margin-top: 33px; width:40%;" />';
+     echo '<h3> Hii there <b><a href="paradox.php">'.$name.'</a></b> Nice to see you!</h3><br>';
+echo '<a href="paradox.php"><button class="btn btn-default" > Click here to play Paradox </button></a> ';
+echo ' <a href="leaderboard1.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+
+    }
+}
+
+}
+elseif($temp_result == "Account already exists.")
+{
+//echo "Welcome Back";
+
+
+
+	$post = [
+    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
+    'req_type' => 30,
+    'google_id' => $usrid,
+];
+$ch = curl_init("http://localhost/api/profile/read_one.php");
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+// execute!
+$response1 = curl_exec($ch);
+// close the connection, release resources used
+curl_close($ch);
+
+//echo $response1;
+
+$records1 = json_decode($response1);
+
+foreach($records1 as $key => $value)
+ 	{
+   	for($i = 0; $i < sizeof($value); $i++)
+   	{
+    	//print_r($value[$i]->name);
+		//echo "<br>";
+    	
+    	$pic_url = $value[$i]->picture;
+    	$name= $value[$i]->name;
+    	$score = $value[$i]->score;
+		$level= $value[$i]->level;
+		
+	/*if($user_count!=0) //if user already exist change greeting text to "Welcome Back"
     {
         
       //show user picture
       $qrya=mysqli_query($link,"SELECT picture FROM users WHERE google_id=$nm");
       $ftch=mysqli_fetch_array($qrya);
-      $p=$ftch['picture'];
-      echo '<img src="'.$p.'" style="float: right;margin-top: 33px; width:40%;" />';
-echo '<h3> Welcome back <b><a href="paradox.php">'.$user->name.'</a></b> Nice to see you again!</h3><br>';
+      $p=$ftch['picture'];*/
+      echo '<img src="'.$pic_url.'" style="float: right;margin-top: 33px; width:40%;" />';
+echo '<h3> Welcome back <b><a href="paradox.php">'.$name.'</a></b> Nice to see you again!</h3><br>';
 echo '<a href="paradox.php"><button class="btn btn-default" > Click here to play Paradox </button></a> ';
-echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+echo ' <a href="leaderboard1.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+}}}
+    
 
-    }
-	else //else greeting text "Thanks for registering"
-	{ 
-      echo '<img src="'.$user->picture.'" style="float: right;margin-top: 33px; width:40%;" />';
-      echo '<code><h3>Hi <b><a href="paradox.php">'.$user->name.'</a></b>, Thanks for Registering!</code></h3><br>';
-		$qaryu=mysqli_query($link,"INSERT INTO users (google_id, name, email, link, picture, level,reg) VALUES('$user->id','$user->name', '$user->email', '$user->link', '$user->picture',0,'$da')");
-    echo '<a href="paradox.php"><button class="btn btn-default" > Click here to play Paradox </button></a>';
-echo '<a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
-    }
-	
-	//print user details
-	/*echo '<pre>';
-	print_r($user);
-	echo '</pre>';*/
 }
 echo '<br></div>';
 echo '</div>';
 echo "</center>";
 
-include_once('footer.php');
+//include_once('footer.php');
 ?>
