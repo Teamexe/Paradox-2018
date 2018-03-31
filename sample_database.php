@@ -1,14 +1,12 @@
 <?php
-
-
 //copy the contents of this file to `database.php` and update the login credentials.
 class Database{
  
     
     private $host = "localhost";
-    private $db_name = "paradox2018";
-    private $username = "root";
-    private $password = "root";
+    private $db_name = "database_name";
+    private $username = "username";
+    private $password = "password";
     public $conn;
  
     
@@ -26,4 +24,10 @@ class Database{
         return $this->conn;
     }
 }
+
+//Google API secret tokens
+$sec_client_id = 'secret_client_id_here'; 
+$sec_client_secret = 'client_secret_here';
+$sec_redirect_uri = 'redirect_uri_here';
+
 ?>
