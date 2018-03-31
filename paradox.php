@@ -50,8 +50,8 @@ if(isset($_POST['answ']))    {
     
     //posting user's answer
     $post = [
-        'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-        'req_type' => 30,
+        'live_token'   => $read_live_token,
+        'req_type' => $read_req_type,
         'google_id' => $session_usr,
         'answer' => $_POST['ans'],
         'level' => $_POST['level'],
@@ -83,8 +83,8 @@ if(isset($_POST['answ']))    {
 
 //fetching current level of person
 $post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
     'google_id' => $session_usr,
 ];
 $ch = curl_init("http://localhost/api/profile/read_one.php");
@@ -115,8 +115,8 @@ foreach($records as $key => $value) 	{
 
 //fetching question image corresponding to user's level
 $post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
     'level' => $level,
 ];
 $ch = curl_init("http://localhost/api/questions/read_level.php");

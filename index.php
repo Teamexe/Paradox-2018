@@ -109,8 +109,8 @@ else
 	//$user_count = $resulta->fetch_object()->usercount; //will return 0 if user doesn't exist
 		
 $post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
     'google_id' => $usrid,
     'name' => $usrname,
     'email' => $usremail,
@@ -146,8 +146,8 @@ elseif($temp_result == "true")
 //echo "Registered Successfully";
 
 $post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
     'google_id' => $usrid,
 ];
 $ch = curl_init("http://localhost/api/profile/read_one.php");
@@ -192,8 +192,8 @@ elseif($temp_result == "Account already exists.")
 //This is the welcome back section
 
 $post = [
-  'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-  'req_type' => 30,
+  'live_token'   => $read_live_token,
+  'req_type' => $read_req_type,
   'google_id' => $usrid,
 ];
 $ch = curl_init("http://localhost/api/profile/read_one.php");

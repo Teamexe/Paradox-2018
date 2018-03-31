@@ -30,4 +30,8 @@ $sec_client_id = 'secret_client_id_here';
 $sec_client_secret = 'client_secret_here';
 $sec_redirect_uri = 'redirect_uri_here';
 
+//Our Website and app tokens
+$read_live_token = 'TOKEN_HERE';
+$read_req_type = 'REQ_TYPE_HERE';
+
 ?>

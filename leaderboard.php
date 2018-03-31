@@ -53,8 +53,8 @@ echo "<td>Score</td>";
 echo "<td>Level</td></b>";
 
 $post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
 ];
 $ch = curl_init("http://localhost/api/profile/read.php");
 
