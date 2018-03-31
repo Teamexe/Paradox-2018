@@ -46,8 +46,39 @@ if(!isset($_SESSION['login_user']))
    }
 
 //Checking the user's submitted answer
-if(isset($_POST['ans']))    {
-    //echo $_POST['ans'];
+if(isset($_POST['answ']))    {
+    
+    //posting user's answer
+    $post = [
+        'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
+        'req_type' => 30,
+        'google_id' => $session_usr,
+        'answer' => $_POST['ans'],
+        'level' => $_POST['level'],
+    ];
+    $ch = curl_init("http://localhost/api/profile/ans_submit.php");
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+    // execute!
+    $ans_response = curl_exec($ch);
+
+    // close the connection, release resources used
+    curl_close($ch);
+    echo $ans_response;
+
+    //decoding the answer response
+    $ans_response1 = json_decode($ans_response);
+    foreach($ans_response1 as $key => $value)    {
+        for($i = 0; $i < sizeof($value); $i++)      {
+            $resp1 = $value[$i]->message;
+        }
+    }
+    //not printing $resp1;
+    echo $resp1;
+
 }
 
 //fetching current level of person
@@ -70,17 +101,14 @@ curl_close($ch);
 //echo $response;
 
 $records = json_decode($response);
-
-foreach($records as $key => $value)
- 	{
-   	for($i = 0; $i < sizeof($value); $i++)
-   	{
+foreach($records as $key => $value) 	{
+   	for($i = 0; $i < sizeof($value); $i++)   	{
     	//print_r($value[$i]->name);
 		//echo "<br>";    	
-     $pic_url = $value[$i]->picture;
-     $name= $value[$i]->name;
-     $score = $value[$i]->score;
-	 $level= $value[$i]->level;
+         $pic_url = $value[$i]->picture;
+         $name = $value[$i]->name;
+         $score = $value[$i]->score;
+    	 $level = $value[$i]->level;
     }
 }
 
@@ -106,8 +134,7 @@ curl_close($ch);
 
 $records_1 = json_decode($response_1);
 
-foreach($records_1 as $key => $value)
- 	{
+foreach($records_1 as $key => $value) 	{
    	for($i = 0; $i < sizeof($value); $i++)   	{
     	$location_img = $value[$i]->url;
     }
@@ -147,7 +174,8 @@ $dir = trim($dir,"paradox.php");
                             <div class="panel-footer">
                                 <form action="" method="post">
                                     <input type="text" name="ans">
-                                    <input class="btn" type="submit" value="Submit Answer">
+                                    <input type="hidden" value="<?php echo $level ?>" name="level" />
+                                    <input name="answ" class="btn" type="submit" value="Submit Answer">
                                 </form>
                             </div>
                         </div>
