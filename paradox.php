@@ -36,50 +36,33 @@
 include_once('stylesheets.php'); 
 include_once('header.php');
 include_once('sessions.php');
-//include_once('dbconnect.php');
 
 //echo $session_usr;
 if(!isset($_SESSION['login_user']))
    {
       //header("Location:index.php");
-      echo "<script type='text/javascript'>window.location.href = 'index1.php';</script>";
+      echo "<script type='text/javascript'>window.location.href = 'index.php';</script>";
       exit();
    }
 
-//$ab=mysqli_query($link,"SELECT level,name,attempts from users WHERE google_id='$session_usr'");
-//$out=mysqli_fetch_array($ab);
-//$l=$out['level'];
-//$nam=$out['name'];
-//$atmpt=$out['attempts'];
-/*
-For debugging the code
-echo "\n";
-echo $l;
-echo $nam;
-echo $atmpt;
-echo "thsfjklsadfjkl";
-*/
 
 //fetching current level of person
-$goo_id = $session_usr;
-
 $post = [
     'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
     'req_type' => 30,
-    'google_id' => $goo_id,
+    'google_id' => $session_usr,
 ];
 $ch = curl_init("http://localhost/api/profile/read_one.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-// execute!
 
+// execute!
 $response = curl_exec($ch);
+
 // close the connection, release resources used
 curl_close($ch);
-
-
 //echo $response;
 
 $records = json_decode($response);
@@ -89,20 +72,16 @@ foreach($records as $key => $value)
    	for($i = 0; $i < sizeof($value); $i++)
    	{
     	//print_r($value[$i]->name);
-		//echo "<br>";
-    	
+		//echo "<br>";    	
      $pic_url = $value[$i]->picture;
      $name= $value[$i]->name;
      $score = $value[$i]->score;
 	 $level= $value[$i]->level;
-		
-	 
-
     }
 }
 
 
-//fetching image corresponding to level of user
+//fetching question image corresponding to user's level
 $post = [
     'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
     'req_type' => 30,
@@ -113,95 +92,34 @@ $ch = curl_init("http://localhost/api/questions/read_level.php");
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-// execute!
 
+// execute!
 $response_1 = curl_exec($ch);
+
 // close the connection, release resources used
 curl_close($ch);
-
-
 //echo $response_1;
 
 $records_1 = json_decode($response_1);
 
 foreach($records_1 as $key => $value)
  	{
-   	for($i = 0; $i < sizeof($value); $i++)
-   	{
-    	//print_r($value[$i]->name);
-		//echo "<br>";
-    	
-     $location_img = $value[$i]->location;
-     	
-	 
-
+   	for($i = 0; $i < sizeof($value); $i++)   	{
+    	$location_img = $value[$i]->url;
     }
 }
+//echo $location_img;
 
+//Getting the images location and trimming `paradox.php` from the url
+$dir = $_SERVER['PHP_SELF'];
+$dir = trim($dir,"paradox.php");
 
-
-//$bc=mysqli_query($link,"SELECT * from imag WHERE level=$l");
-//$out1=mysqli_fetch_array($bc);
-//$leve=$out1['location'];
-
-
-
-/*if(isset($_POST['ans']))
-{
-    $answer=$_POST['ans'];
-    //convert to lowercase for matching
-    $answer=strtolower($answer);
-    //echo $answer;
-    ++$atmpt;
-    //echo $atmpt;
-
-    //fetching answer
-    $abc=mysqli_query($link,"SELECT chek from imag WHERE level=$l");    
-    $out3=mysqli_fetch_array($abc);
-    $ansd=$out3['chek'];
-
-    //checking the answer & no. of attempt
-    if ($answer==$ansd) 
-    {
-        //increase the level no. & the attempt count
-        ++$l;
-        $abd=mysqli_query($link,"UPDATE users SET level='$l', attempts='$atmpt' WHERE google_id=$session_usr");
-        include_once('paradox_right.php');
-        echo "<center>Well done! Correct answer</center>";
-        include_once('paradox_bottom.php');
-        $bc=mysqli_query($link,"SELECT * from imag WHERE level=$l");
-        $out1=mysqli_fetch_array($bc);
-        $leve=$out1['location'];        
-    }
-    else
-    {
-        //increase attempt count only
-        $abd=mysqli_query($link,"UPDATE users SET attempts='$atmpt' WHERE google_id=$session_usr");
-        
-        //checking if message is empty/not
-        if ($answer) 
-        {
-            include_once('paradox_wrong.php');
-            echo "<center>Wrong Answer : Try again!</center>";
-            include_once('paradox_bottom.php');
-        }
-        else
-        {
-            include_once('paradox_wrong.php');
-            echo "<center>Submitting answer without entering value is increasing your no. of attempts. It really matters.</center>";
-            include_once('paradox_bottom.php');
-        }
-        
-    }
-
-}
-          */              
 ?>
 
                 <div class="demo-card">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                    <h3 class="panel-title">Paradox Level #<?php echo $level; ?><span style="float: right"><?php echo $nam; ?></span>
+                                    <h3 class="panel-title">Paradox Level #<?php echo $level; ?><span style="float: right"><?php echo $name; ?></span>
                                     </h3>
                             </div>
                             <div class="panel-body">
@@ -213,7 +131,7 @@ foreach($records_1 as $key => $value)
                 }
                 else
                 {
-                    echo "<img src=".$location_img." />"; 
+                    echo "<img src=".$dir.$location_img." />"; 
                 }
                         echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
                         echo "<br><br>";

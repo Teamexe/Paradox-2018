@@ -96,7 +96,7 @@ if (isset($authUrl))
 else 
 {
 	$user = $service->userinfo->get(); //get user info 
-	$_SESSION['login_user']=$user['id'];
+	$_SESSION['login_user']=$user->id;
 	include_once('sessions.php');
    $usrid = $user->id;
    $usrname = $user->name;
