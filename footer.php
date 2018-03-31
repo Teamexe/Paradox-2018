@@ -1,7 +1,7 @@
 <section class="global-page-header">
         </section>
         <?php
-        include_once 'database.php';
+        /*include_once 'database.php';
 		$database = new Database();
 		$db = $database->getConnection();        
                 //Get the name of current page open in browser
@@ -20,7 +20,7 @@
                 ++$out;
                 //updating the new value in database
                 $qryu=mysqli_query($db,"UPDATE hits SET cnt='$out' WHERE nam='$namee'");
-        ?>
+        */?>
         <footer id="footer">
             <div class="container">
                 <div class="col-md-8">

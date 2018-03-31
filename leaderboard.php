@@ -34,78 +34,70 @@
 </style>
   </head>
 <body>
-<?php
-echo "yes";
-?>
+
+
 <?php
 session_start();
 include_once('stylesheets.php'); 
 include_once('header.php');
 include_once('sessions.php');
-//include_once('dbconnect.php');
-include_once 'database.php';
-//include_once '..api/objects/profile.php';
-//include_once '..api/objects/tokens.php';
 
-// instantiate database and product object
-$database = new Database();
-$db = $database->getConnection();
+
 
 echo '<div class="table-responsive">';
 echo '<table class="table table-hover"><tr><b>';
 echo "<td>Position</td>";
 echo "<td>Name</td>";
 echo "<td>Photo</td>";
-echo "<td>Score</td></b>";
+echo "<td>Score</td>";
 echo "<td>Level</td></b>";
+
+$post = [
+    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
+    'req_type' => 30,
+];
+$ch = curl_init("http://localhost/api/profile/read.php");
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+// execute!
+
+$response = curl_exec($ch);
+// close the connection, release resources used
+curl_close($ch);
+
+// do anything you want with your response
+$records = json_decode($response);
 $cn=0;
-   
-    $stmt = $profile->leaderboard();
-    $num = $stmt->rowCount(); 
 
-
-
-if($num>0)
-{
-     /*$profile_arr=array();
-    $profile_arr["records"]=array();
-*/ 
-   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
-        extract($row);
+foreach($records as $key => $value)
+    {
+    for($i = 0; $i < sizeof($value); $i++)
+    {
+        //print_r($value[$i]->name);
+        //echo "<br>";
+        $cn++;
+        $pic_url = $value[$i]->picture;
         
-        /*$result = mysqli_query($link,"select * from users order by level desc");
-        if(!$result)die ("Database access failed:". mysqli_error($link));
-        while($row=mysqli_fetch_array($result))
-        */
-             $cn++;
-?>
+
+ ?>
+            
             <tr>
             <td><?php echo $cn; ?></td>
-            <td><?php echo $row['name']?>"></td>
-            <td><img src="<?php echo $row['picture']?>"></td>
-            <!--<td><a href="<?php echo $row['score']; ?>" target="_blank"><button class="btn"><?php echo $row['name']?></button></a></td>
-            <td><?php echo $row['score']?>"></td>
+            <td><?php print_r($value[$i]->name);?></td>
+            <td><img src="<?php echo $pic_url; ?>"></td>
+            <td><?php print_r($value[$i]->score);?></td>
             <td><?php 
-            if($row['level']==12)
-            	echo "Completed";
+            if($value[$i]->level == 13)
+                echo "Completed";
             else
-            	echo $row['level'];
-            ?></td>
-            </tr>
-     <?php }} ?>           
-                
-<?php 
-           
-           else {
-           		echo "No users yet"; 
+                print_r($value[$i]->level);
            }
-        echo "</table></div>";
-        echo "<center>Registered users : $cn</center><br>";
-        include_once('footer.php');
-?>
--->
-    </body>
+           } ?></td>
+            </tr>
+           
+ 
+
+</body>
 </html>

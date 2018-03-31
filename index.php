@@ -27,15 +27,16 @@ session_start(); //session start
 require_once ('libraries/Google/autoload.php');
 include_once('stylesheets.php'); 
 include_once('header.php');
-//include_once('database.php');
+include_once('database.php');
 
 //$database = new Database();
 //$db = $database->getConnection();
 //Insert your cient ID and secret 
 //You can get it from : https://console.developers.google.com/
-$client_id = '782438514337-rnuume9h0hsni475jojuhen977p4j6su.apps.googleusercontent.com'; 
-$client_secret = 'NJBL_AvMF7U8h4QXTLdHF4Ni';
-$redirect_uri = 'http://localhost/github/Paradox-2018/index1.php';
+//the values of these tokens is present in database.php
+$client_id = $sec_client_id;
+$client_secret = $sec_client_secret;
+$redirect_uri = $sec_redirect_uri;
 
 
 $client = new Google_Client();
@@ -242,5 +243,5 @@ echo '<br></div>';
 echo '</div>';
 echo "</center>";
 
-//include_once('footer.php');
+include_once('footer.php');
 ?>

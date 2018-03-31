@@ -24,7 +24,6 @@
    }
 
 
-
    if(!isset($_SESSION['login_user'])||$_SESSION['login_user']=='')
    {
       //update later
