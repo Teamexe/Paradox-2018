@@ -14,7 +14,7 @@
    while($row = mysqli_fetch_assoc($ses_sql))
    {
       $session_usr=$row['google_id'];
-      //echo $session; to check the username
+      //echo $session; //to check the username
    }
 
 

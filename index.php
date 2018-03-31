@@ -180,7 +180,7 @@ foreach($records1 as $key => $value)
 	 echo '<img src="'.$pic_url.'" style="float: right;margin-top: 33px; width:40%;" />';
      echo '<h3> Hii there <b><a href="paradox.php">'.$name.'</a></b> Nice to see you!</h3><br>';
 echo '<a href="paradox.php"><button class="btn btn-default" > Click here to play Paradox </button></a> ';
-echo ' <a href="leaderboard1.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
 
     }
 }
@@ -189,13 +189,12 @@ echo ' <a href="leaderboard1.php"><button class="btn btn-default" > View Paradox
 elseif($temp_result == "Account already exists.")
 {
 //echo "Welcome Back";
+//This is the welcome back section
 
-
-
-	$post = [
-    'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
-    'req_type' => 30,
-    'google_id' => $usrid,
+$post = [
+  'live_token'   => 'PHyQdkcVGU2Q1FBNmolhVJ9NZlhBvtqyMGbHAf6AK88l0L6df1Ry9bQlICduNDcXPnHaxFkvAzj99qvUezB8EQH2cjg7hMW8Y6rJ25V2JDPqjTTrIsNfMAtQXdfT',
+  'req_type' => 30,
+  'google_id' => $usrid,
 ];
 $ch = curl_init("http://localhost/api/profile/read_one.php");
 
@@ -234,7 +233,7 @@ foreach($records1 as $key => $value)
       echo '<img src="'.$pic_url.'" style="float: right;margin-top: 33px; width:40%;" />';
 echo '<h3> Welcome back <b><a href="paradox.php">'.$name.'</a></b> Nice to see you again!</h3><br>';
 echo '<a href="paradox.php"><button class="btn btn-default" > Click here to play Paradox </button></a> ';
-echo ' <a href="leaderboard1.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
 }}}
     
 
