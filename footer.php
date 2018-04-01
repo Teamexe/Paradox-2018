@@ -1,26 +1,5 @@
 <section class="global-page-header">
         </section>
-        <?php
-        /*include_once 'database.php';
-		$database = new Database();
-		$db = $database->getConnection();        
-                //Get the name of current page open in browser
-                $namee=basename($_SERVER['PHP_SELF']); 
-                
-                //fetching page count from database for particular page
-                $qry=mysqli_query($db,"SELECT * from  where nam='$namee'");
-                while($rowa = mysqli_fetch_assoc($qry))
-                {
-                    //getting count INT
-                    $out=$rowa['cnt'];
-                    //echo "$out";
-                }
-
-                //now incrementing 1 in the fetched value
-                ++$out;
-                //updating the new value in database
-                $qryu=mysqli_query($db,"UPDATE hits SET cnt='$out' WHERE nam='$namee'");
-        */?>
         <footer id="footer">
             <div class="container">
                 <div class="col-md-8">

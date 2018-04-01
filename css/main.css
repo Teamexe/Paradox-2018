@@ -3,6 +3,7 @@ body {
   padding-bottom: 40px;
   padding-top: 100px;
   color: #5a5a5a;
+  background-color: #f8f9f9;
 }
 h1,
 h2,
@@ -668,7 +669,7 @@ ul.social-icons li {
   background-size: cover;
   padding: 10px 0 0 0;
   position: relative;
-  background: #454545;
+  background:  #2b2a60;
   color: #fff;
 }
 .global-page-header h2 {
