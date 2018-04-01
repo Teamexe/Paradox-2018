@@ -46,6 +46,49 @@ if(!isset($_SESSION['login_user']))
       exit();
    }
 
+//Checking the user's submitted answer
+if(isset($_POST['ans']))    {
+    
+    //posting user's answer
+    $post = [
+        'live_token'   => $read_live_token,
+        'req_type' => $read_req_type,
+        'google_id' => $session_usr,
+        'answer' => $_POST['ans'],
+        'level' => $_POST['level'],
+    ];
+    $ch = curl_init("http://localhost/api/profile/ans_submit.php");
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+    // execute!
+    $ans_response = curl_exec($ch);
+
+    // close the connection, release resources used
+    curl_close($ch);
+    //echo $ans_response;
+  $ans_decode = json_decode($ans_response);
+
+  ?>
+<div class="demo-card">
+  <?php
+  $tmp = $ans_decode->{'message'};
+  if($tmp == "false") {
+     echo '<div class="alert alert-danger" role="alert"> Oh! Incorrect Answer. Try again</div>'; 
+  }
+  elseif($tmp == "true")  {
+     echo '<div class="alert alert-success" role="alert"> Congratulations! Correct answer.</div>';  
+  }
+  else  {
+     echo '<div class="alert alert-warning" role="alert"> Some Problem was encountered!Try again.</div>';
+  }
+?>
+</div>
+<?php
+}
+
 //fetching current level of person
 $post = [
     'live_token'   => $read_live_token,
@@ -109,50 +152,6 @@ foreach($records_1 as $key => $value) 	{
 //Getting the images location and trimming `paradox.php` from the url
 $dir = $_SERVER['PHP_SELF'];
 $dir = trim($dir,"paradox.php");
-
-
-//Checking the user's submitted answer
-if(isset($_POST['ans']))    {
-    
-    //posting user's answer
-    $post = [
-        'live_token'   => $read_live_token,
-        'req_type' => $read_req_type,
-        'google_id' => $session_usr,
-        'answer' => $_POST['ans'],
-        'level' => $_POST['level'],
-    ];
-    $ch = curl_init("http://localhost/api/profile/ans_submit.php");
-
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-
-    // execute!
-    $ans_response = curl_exec($ch);
-
-    // close the connection, release resources used
-    curl_close($ch);
-    //echo $ans_response;
-  $ans_decode = json_decode($ans_response);
-
-  ?>
-<div class="demo-card">
-  <?php
-  $tmp = $ans_decode->{'message'};
-  if($tmp == "false") {
-     echo '<div class="alert alert-danger" role="alert"> Oh! Incorrect Answer. Try again</div>'; 
-  }
-  elseif($tmp == "true")  {
-     echo '<div class="alert alert-success" role="alert"> Congratulations! Correct answer.</div>';  
-  }
-  else  {
-     echo '<div class="alert alert-warning" role="alert"> Some Problem was encountered!Try again.</div>';
-  }
-?>
-</div>
-<?php
-}
 
 ?>
                   <div class="demo-card">
