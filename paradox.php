@@ -70,7 +70,7 @@ if(isset($_POST['ans']))    {
     curl_close($ch);
     //echo $ans_response;
 	$ans_decode = json_decode($ans_response);
-	 //$tmp = $ans_decode->{'message'};
+	 $tmp = $ans_decode->{'message'};
 	if($tmp == "false")
 	{
 	echo '<h3 align="center"> Incorrect Answer.Think again</h3><br>';	
