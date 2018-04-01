@@ -36,7 +36,7 @@
 include_once('stylesheets.php'); 
 include_once('header.php');
 include_once('sessions.php');
-include_once('database.php');
+//include_once('database.php');
 
 //echo $session_usr;
 if(!isset($_SESSION['login_user']))

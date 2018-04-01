@@ -20,17 +20,33 @@
       //echo $session; //to check the username
    }
    */
+   
+   $post = [
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
+    'google_id' => $user_check,
+];
+$ch = curl_init("http://localhost/api/users/check_session.php");
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+// execute!
+
+$response = curl_exec($ch);
+// close the connection, release resources used
+curl_close($ch);
+
+// do anything you want with your response
+$records = json_decode($response);
+$tmp = $records->{'message'};   
    //Temporary solution, can backfire under certain conditions
-   $session_usr = $user_check;
-
-   if(!isset($_SESSION['login_user'])|| $login_session=='')
-   {
-      header("Location:index.php");
+   //$session_usr = $user_check;
+	
+   if($tmp)	{
+   		$session_usr = $user_check;
    }
-
-
-   if(!isset($_SESSION['login_user'])||$_SESSION['login_user']=='')
-   {
-      //update later
-   }
+   else	{
+   	 header("Location:index.php");
+   	 }
 ?>
