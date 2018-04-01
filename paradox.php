@@ -70,7 +70,7 @@ if(isset($_POST['ans']))    {
     curl_close($ch);
     //echo $ans_response;
 	$ans_decode = json_decode($ans_response);
-	 $tmp = $ans_decode->{'message'};
+	$tmp = $ans_decode->{'message'};
 	if($tmp == "false")
 	{
 	echo '<h3 align="center"> Incorrect Answer.Think again</h3><br>';	
@@ -150,61 +150,49 @@ $dir = $_SERVER['PHP_SELF'];
 $dir = trim($dir,"paradox.php");
 
 ?>
-
+                  <div class="demo-card">
+                  <div class="panel panel-info">
+                  <div class="panel-heading">
                 <?php 
                         //echo '<pre>Your Total Attempts - '.$atmpt.'</pre>'; 
                 if ($level==13) 
-                {?>
-                    
-                  <div class="demo-card">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                    <h3 class="panel-title">Congratulations!Paradox Completed.<span style="float: right"><?php echo $name; ?></span>
-                                    </h3>
-                             </div>
-                       
- 					   </div>
- 				    </div>
- 				    <div align="center">              
-                   <?php echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
-                        echo "<br><br>";
-                        echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
-                        echo "<br><br>";
-                                                  
+                { 
+                  //setting a variable to 1
+                  $final = 1;
+                  ?>
+                  <h3 class="panel-title">Congratulations! <b>Paradox Completed.</b><span style="float: right"><?php echo $name; ?></span></h3>
+                <?php
                 }
                 else
                 {
                 ?>
+                  <h3 class="panel-title">Paradox Level #<?php echo $level; ?><span style="float: right"><?php echo $name; ?></span></h3>
+                  <?php 
+                }
+                  ?>
+                  </div>
                   
-                  <div class="demo-card">
-
-                            <div class="panel-heading">
-                                    <h3 class="panel-title">Paradox Level #<?php echo $level; ?><span style="float: right"><?php echo $name; ?></span>
-                                    </h3>
-                            </div>
-                            <div class="panel-body">
+                  <div class="panel-body">
                 
-                  <?php  echo "<img src=".$location_img." />"; 
-                
-                       echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
+                  <?php echo "<img src=".$dir.$location_img." />"; 
+                        echo '<div style="text-align: center">';
+                        echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
                         echo "<br><br>";
                         echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
                         echo "<br><br>";
-                        echo ' <a href="hints.php"><button class="btn btn-default" > View Paradox - Hints </button></a>';                                              
-                
+                        echo ' <a href="hints.php"><button class="btn btn-default" > View Paradox - Hints </button></a></div>';
                 ?>
-                            </div>
+                    </div>
                             <div class="panel-footer">
                                 <form action="" method="post">
-                                    <input type="text" name="ans">
+                                    <input type="text" name="ans" <?php if($final==1) echo "disabled" ?>>
                                     <input type="hidden" value="<?php echo $level ?>" name="level" />
-                                    <input name="answ" class="btn" type="submit" value="Submit Answer">
+                                    <input name="answ" class="btn btn-primary" type="submit" value="Submit Answer" <?php if($final==1) echo "disabled" ?>>
                                 </form>
                             </div>
                         </div>
                     </div> 
 
 <?php
-}
         include_once('footer.php');
-?>                        <div class="panel panel-info">
+?>                        
