@@ -76,7 +76,11 @@ foreach($records as $key => $value)
         //echo "<br>";
         $cn++;
         $pic_url = $value[$i]->picture;
-        
+        $score = $value[$i]->score;
+        if($score < 0)
+        $sc = 0;
+        else
+        $sc = $score;
 
  ?>
             
@@ -84,7 +88,7 @@ foreach($records as $key => $value)
             <td><?php echo $cn; ?></td>
             <td><?php print_r($value[$i]->name);?></td>
             <td><img src="<?php echo $pic_url; ?>"></td>
-            <td><?php print_r($value[$i]->score);?></td>
+            <td><?php echo $sc;?></td>
             <td><?php 
                         if($value[$i]->level == 13)
                             echo "Completed";
