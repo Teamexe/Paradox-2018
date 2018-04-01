@@ -29,7 +29,9 @@
 session_start();
 include_once('stylesheets.php'); 
 include_once('header.php');
-include_once('dbconnect.php');
+include_once('sessions.php');
+include_once('database.php');
+
         echo '<div class="table-responsive">';
         echo '<table class="table table-hover"><tr><b>';
         echo "<td>Level</td>";
@@ -37,21 +39,82 @@ include_once('dbconnect.php');
         echo "<td>Hint 2</td>";
         echo "<td>Hint 3</td><tr></b>";
 
-        $result = mysqli_query($link,"select * from hints");
-        if(!$result)die ("Database access failed:". mysqli_error($link));
-        while($row=mysqli_fetch_array($result))
-            {
+        
+        //fetching current level of person
+$post = [
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
+    'google_id' => $session_usr,
+];
+$ch = curl_init("http://localhost/api/profile/read_one.php");
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+// execute!
+$response = curl_exec($ch);
+
+// close the connection, release resources used
+curl_close($ch);
+//echo $response;
+
+$records = json_decode($response);
+foreach($records as $key => $value) 	{
+   	for($i = 0; $i < sizeof($value); $i++)   	{
+    	//print_r($value[$i]->name);
+		//echo "<br>";    	
+         $pic_url = $value[$i]->picture;
+         $name = $value[$i]->name;
+         $score = $value[$i]->score;
+    	 $level = $value[$i]->level;
+    }
+}
+
+
+
+     //fetching hints corresponding to current level
+$post = [
+    'live_token'   => $read_live_token,
+    'req_type' => $read_req_type,
+    'level' => $level,
+];
+$ch_1 = curl_init("http://localhost/api/hints/read.php");
+
+curl_setopt($ch_1, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch_1, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch_1, CURLOPT_POSTFIELDS, $post);
+
+// execute!
+$response_1 = curl_exec($ch_1);
+
+// close the connection, release resources used
+curl_close($ch_1);
+//echo $response;
+
+$records_1 = json_decode($response_1);
+foreach($records_1 as $key => $value) 	{
+   	for($i = 0; $i < sizeof($value); $i++)   	{
+    	
+    	 $hint1 = $value[$i]->hint1;
+         $hint2 = $value[$i]->hint2;
+         $hint3 = $value[$i]->hint3;
+    	}
+}
+   
+        
+        
+        
 ?>
             <tr>
-            <td><?php echo $row['level']; ?></td>
-            <td><?php echo $row['h1']; ?></td>
-            <td><?php echo $row['h2']; ?></td>
-            <td><?php echo $row['h3']; ?></td>
+            <td><?php echo $level; ?></td>
+            <td><?php echo $hint1; ?></td>
+            <td><?php echo $hint2; ?></td>
+            <td><?php echo $hint3; ?></td>
             </tr>
                 
                 
-<?php 
-            } 
-        echo "</table></div>";
+<?php       
+             echo "</table></div>";
         include_once('footer.php');
 ?>
