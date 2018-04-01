@@ -36,6 +36,7 @@
 include_once('stylesheets.php'); 
 include_once('header.php');
 include_once('sessions.php');
+include_once('database.php');
 
 //echo $session_usr;
 if(!isset($_SESSION['login_user']))
@@ -46,7 +47,7 @@ if(!isset($_SESSION['login_user']))
    }
 
 //Checking the user's submitted answer
-if(isset($_POST['answ']))    {
+if(isset($_POST['ans']))    {
     
     //posting user's answer
     $post = [
@@ -67,18 +68,21 @@ if(isset($_POST['answ']))    {
 
     // close the connection, release resources used
     curl_close($ch);
-    echo $ans_response;
-
-    //decoding the answer response
-    $ans_response1 = json_decode($ans_response);
-    foreach($ans_response1 as $key => $value)    {
-        for($i = 0; $i < sizeof($value); $i++)      {
-            $resp1 = $value[$i]->message;
-        }
-    }
-    //not printing $resp1;
-    echo $resp1;
-
+    //echo $ans_response;
+	$ans_decode = json_decode($ans_response);
+	 //$tmp = $ans_decode->{'message'};
+	if($tmp == "false")
+	{
+	echo '<h3 align="center"> Incorrect Answer.Think again</h3><br>';	
+	}
+	elseif($tmp == "true")
+	{
+	echo '<h3 align="center"> Congratulations!Welcome to the next level.</h3><br>';	
+	}
+	else
+	{
+	echo '<h3 align="center"> Some Problem was encountered!Try again.</h3><br>';
+	}
 }
 
 //fetching current level of person
@@ -147,28 +151,47 @@ $dir = trim($dir,"paradox.php");
 
 ?>
 
-                <div class="demo-card">
+                <?php 
+                        //echo '<pre>Your Total Attempts - '.$atmpt.'</pre>'; 
+                if ($level==13) 
+                {?>
+                    
+                  <div class="demo-card">
                         <div class="panel panel-info">
+                            <div class="panel-heading">
+                                    <h3 class="panel-title">Congratulations!Paradox Completed.<span style="float: right"><?php echo $name; ?></span>
+                                    </h3>
+                             </div>
+                       
+ 					   </div>
+ 				    </div>
+ 				    <div align="center">              
+                   <?php echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
+                        echo "<br><br>";
+                        echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
+                        echo "<br><br>";
+                                                  
+                }
+                else
+                {
+                ?>
+                  
+                  <div class="demo-card">
+
                             <div class="panel-heading">
                                     <h3 class="panel-title">Paradox Level #<?php echo $level; ?><span style="float: right"><?php echo $name; ?></span>
                                     </h3>
                             </div>
                             <div class="panel-body">
-                <?php 
-                        //echo '<pre>Your Total Attempts - '.$atmpt.'</pre>'; 
-                if ($level==13) 
-                {
-                    echo "Congratulations, Paradox completed\n";
-                }
-                else
-                {
-                    echo "<img src=".$dir.$location_img." />"; 
-                }
-                        echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
+                
+                  <?php  echo "<img src=".$location_img." />"; 
+                
+                       echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
                         echo "<br><br>";
                         echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
                         echo "<br><br>";
                         echo ' <a href="hints.php"><button class="btn btn-default" > View Paradox - Hints </button></a>';                                              
+                
                 ?>
                             </div>
                             <div class="panel-footer">
@@ -182,6 +205,6 @@ $dir = trim($dir,"paradox.php");
                     </div> 
 
 <?php
-
+}
         include_once('footer.php');
-?>
+?>                        <div class="panel panel-info">
