@@ -34,14 +34,11 @@
 </style>
   </head>
 <body>
-
-
 <?php
 session_start();
 include_once('stylesheets.php'); 
 include_once('header.php');
 include_once('sessions.php');
-
 
 
 echo '<div class="table-responsive">';
@@ -50,7 +47,7 @@ echo "<td>Position</td>";
 echo "<td>Name</td>";
 echo "<td>Photo</td>";
 echo "<td>Score</td>";
-echo "<td>Level</td></b>";
+echo "<td>Level</td></b></tr>";
 
 $post = [
     'live_token'   => $read_live_token,
@@ -89,15 +86,22 @@ foreach($records as $key => $value)
             <td><img src="<?php echo $pic_url; ?>"></td>
             <td><?php print_r($value[$i]->score);?></td>
             <td><?php 
-            if($value[$i]->level == 13)
-                echo "Completed";
-            else
-                print_r($value[$i]->level);
-           }
-           } ?></td>
+                        if($value[$i]->level == 13)
+                            echo "Completed";
+                        else
+                            print_r($value[$i]->level);
+                ?>
+            </td>
             </tr>
-           
- 
+            <?php
+        }
+        }
+        ?>
+        </table></div>
 
+<?php
+        echo "<center><b>Registered users : $cn</b></center><br>";
+        include_once('footer.php');
+?>
 </body>
 </html>
