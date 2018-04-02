@@ -69,20 +69,24 @@ if(isset($_POST['ans']))    {
     // close the connection, release resources used
     curl_close($ch);
     //echo $ans_response;
-	$ans_decode = json_decode($ans_response);
-	$tmp = $ans_decode->{'message'};
-	if($tmp == "false")
-	{
-	echo '<h3 align="center"> Incorrect Answer.Think again</h3><br>';	
-	}
-	elseif($tmp == "true")
-	{
-	echo '<h3 align="center"> Congratulations!Welcome to the next level.</h3><br>';	
-	}
-	else
-	{
-	echo '<h3 align="center"> Some Problem was encountered!Try again.</h3><br>';
-	}
+  $ans_decode = json_decode($ans_response);
+
+  ?>
+<div class="demo-card">
+  <?php
+  $tmp = $ans_decode->{'message'};
+  if($tmp == "false") {
+     echo '<div class="alert alert-danger" role="alert"> Oh! Incorrect Answer. Try again</div>'; 
+  }
+  elseif($tmp == "true")  {
+     echo '<div class="alert alert-success" role="alert"> Congratulations! Correct answer.</div>';  
+  }
+  else  {
+     echo '<div class="alert alert-warning" role="alert"> Some Problem was encountered!Try again.</div>';
+  }
+?>
+</div>
+<?php
 }
 
 //fetching current level of person
