@@ -116,7 +116,7 @@ $post = [
     'email' => $usremail,
     'picture' => $usrpic,
 ];
-$ch = curl_init("http://localhost/api/users/create_new.php");
+$ch = curl_init("http://teamexe.in/api/users/create_new.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -150,7 +150,7 @@ $post = [
     'req_type' => $read_req_type,
     'google_id' => $usrid,
 ];
-$ch = curl_init("http://localhost/api/profile/read_one.php");
+$ch = curl_init("http://teamexe.in/api/profile/read_one.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -196,7 +196,7 @@ $post = [
   'req_type' => $read_req_type,
   'google_id' => $usrid,
 ];
-$ch = curl_init("http://localhost/api/profile/read_one.php");
+$ch = curl_init("http://teamexe.in/api/profile/read_one.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
