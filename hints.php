@@ -46,7 +46,7 @@ $post = [
     'req_type' => $read_req_type,
     'google_id' => $session_usr,
 ];
-$ch = curl_init("http://teamexe.in/api/profile/read_one.php");
+$ch = curl_init($base_url."/api/profile/read_one.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -79,7 +79,7 @@ $post = [
     'req_type' => $read_req_type,
     'level' => $level,
 ];
-$ch_1 = curl_init("http://teamexe.in/api/hints/read.php");
+$ch_1 = curl_init($base_url."/api/hints/read.php");
 
 curl_setopt($ch_1, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch_1, CURLOPT_RETURNTRANSFER, true);

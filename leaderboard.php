@@ -53,7 +53,7 @@ $post = [
     'live_token'   => $read_live_token,
     'req_type' => $read_req_type,
 ];
-$ch = curl_init("http://teamexe.in/api/profile/read.php");
+$ch = curl_init($base_url."/api/profile/read.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

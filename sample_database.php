@@ -34,4 +34,7 @@ $sec_redirect_uri = 'redirect_uri_here';
 $read_live_token = 'TOKEN_HERE';
 $read_req_type = 'REQ_TYPE_HERE';
 
+//base URL
+$base_url = 'https://hostname';
+
 ?>

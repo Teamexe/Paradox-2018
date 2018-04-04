@@ -26,7 +26,7 @@
     'req_type' => $read_req_type,
     'google_id' => $user_check,
 ];
-$ch = curl_init("http://teamexe.in/api/users/check_session.php");
+$ch = curl_init($base_url."/api/users/check_session.php");
 
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
