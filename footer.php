@@ -1,5 +1,5 @@
-<section class="global-page-header">
-        </section>
+<section class="global-page-header"></section>
+
         <footer id="footer">
             <div class="container">
                 <div class="col-md-8">
