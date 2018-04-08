@@ -87,7 +87,11 @@ foreach($records as $key => $value)
             <tr>
             <td><?php echo $cn; ?></td>
             <td><?php print_r($value[$i]->name);?></td>
-            <td><img src="<?php echo $pic_url; ?>"></td>
+            <td><?php 
+                        if($pic_url != 'null') {
+                ?><img src="<?php echo $pic_url; ?>">
+            <?php } else {   echo 'No image available';   } ?>
+            </td>
             <td><?php echo $sc;?></td>
             <td><?php 
                         if($value[$i]->level == 13)
