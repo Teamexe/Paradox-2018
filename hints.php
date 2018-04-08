@@ -116,5 +116,10 @@ foreach($records_1 as $key => $value) 	{
                 
 <?php       
              echo "</table></div>";
+?>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br>
+<?php
         include_once('footer.php');
 ?>
