@@ -47,8 +47,13 @@ include_once('header.php');
                             </div>
                             <div class="panel-body">
                             <ol>
-                                <li>Guess the answer of the Image shown and submit it in the result.</li>
-                                <li>One can view hints, to move to next level, if can't solve without it. No points will be deducted on viewing hints.</li>
+                                <li>Guess the answer of the image shown and submit it in the result.<br/></li>
+                                
+                                <li>Hints will be added periodically.One can view hints, to move to next level, if can't solve without it. No points will be deducted on viewing hints.<br/></li>
+                                
+                                <li>Register as early as possible, late registration will leave you at a disadvantage.2 points will be deducted per day for each registration after 9 April.<br/></li>
+                                <li>Download our <a href="https://play.google.com/store/apps/details?id=com.exe.paradox" target="_blank">Paradox App</a> to generate your referral code and earn points by referring our app to your friends.Maximum 5 friends can use your referral code and you will be awarded 2 points for each successful referral and your friend will be awarded 1 point for using your referral code.<br/></li>
+
                                 <li>For any query regarding the event, feel free to contact at <i>teamexenith@gmail.com</i></li>
                             </ol>
                             </div>
