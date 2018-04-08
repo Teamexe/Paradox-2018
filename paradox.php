@@ -179,14 +179,18 @@ $dir = trim($dir,"paradox.php");
                   <div class="panel-body">
                 
                   <?php echo "<img src=".$dir.$location_img." />"; 
-                        echo '<div style="text-align: center">';
+                        echo '<div style="text-align: center;">';
                         echo ' <a href="instructions.php"><button class="btn btn-default" > View Paradox - Instructions </button></a>';   
                         echo "<br><br>";
                         echo ' <a href="leaderboard.php"><button class="btn btn-default" > View Paradox - Leaderboard </button></a>';
                         echo "<br><br>";
-                        echo ' <a href="hints.php"><button class="btn btn-default" > View Paradox - Hints </button></a></div>';
+                        echo ' <a href="hints.php"><button class="btn btn-default" > View Paradox - Hints </button></a>';
                 ?>
-                    </div>
+
+                 <br><br><p>Download our <a href="https://play.google.com/store/apps/details?id=com.exe.paradox" target="_blank"><button class="btn" >Paradox App</button></a> to generate your referral code and earn points by referring our app.<br>
+                 	For more info read <a href="instructions.php"><button class="btn" >Paradox Instructions </button></a> </p>
+
+                    </div></div>
                             <div class="panel-footer">
                                 <form action="" method="post">
                                     <input type="text" name="ans" <?php if($final==1) echo "disabled" ?>>
